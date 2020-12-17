@@ -51,7 +51,7 @@ for link in $(cat $1); do
 done
 echo ''
 echo 'Would you like to check hosts that did not contain a title? Y/N'
-read -p ">> " CHOICE
+read -r -p ">> " CHOICE
 if [[ $CHOICE =~ ^([yY][eE][sS]|[yY])+$ ]]; then
     for j in $(cat unknown.txt); do
         addr_unk=$(echo "$j" | sed 's~http[s]*://~~g')
@@ -72,7 +72,7 @@ if [[ $CHOICE =~ ^([yY][eE][sS]|[yY])+$ ]]; then
         fi
     done
     echo "Would you like to clear unknown.txt? Y/N"
-    read -p '>> ' CHOICE2
+    read -r -p '>> ' CHOICE2
     if [[ $CHOICE =~ ^([yY][eE][sS]|[yY])+$ ]]; then
         > unknown.txt
     else
