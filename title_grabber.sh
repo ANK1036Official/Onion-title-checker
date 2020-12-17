@@ -28,9 +28,9 @@ echo ''
 echo 'All links will be stored in links.txt'
 echo 'Any links with no title will be stored in unknown.txt'
 echo ''
-for link in `cat $1`; do
-    addr=`echo "$link" | sed 's~http[s]*://~~g'`
-    output=`curl --connect-timeout 20 -s --socks5-hostname localhost:9050 $link | grep -iPo '(?<=<title>)(.*)(?=</title>)'`
+for link in $(cat $1); do
+    addr=$(echo "$link" | sed 's~http[s]*://~~g')
+    output=$(curl --connect-timeout 20 -s --socks5-hostname localhost:9050 $link | grep -iPo '(?<=<title>)(.*)(?=</title>)')
     printf "$LGREEN"
     printf "$addr"
     printf "$RESTORE"
@@ -53,9 +53,9 @@ echo ''
 echo 'Would you like to check hosts that did not contain a title? Y/N'
 read -p ">> " CHOICE
 if [[ $CHOICE =~ ^([yY][eE][sS]|[yY])+$ ]]; then
-    for j in `cat unknown.txt`; do
-        addr_unk=`echo "$j" | sed 's~http[s]*://~~g'`
-        output_unk=`curl --socks5-hostname localhost:9050 --connect-timeout 20 -Is $j | head -n 1`
+    for j in $(cat unknown.txt); do
+        addr_unk=$(echo "$j" | sed 's~http[s]*://~~g')
+        output_unk=$(curl --socks5-hostname localhost:9050 --connect-timeout 20 -Is $j | head -n 1)
         printf "$LGREEN"
         printf "$addr_unk -- "
         printf "$RESTORE"
